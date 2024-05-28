@@ -47,10 +47,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  color: antiquewhite;
+  font-size: 0.7rem;
 }
 
 .landscape-img {
-  height: 89vh;
+  height: 80vh;
   width: auto;
 }
 
@@ -99,4 +102,66 @@
     padding: 20px;
     overflow-x: hidden;
   }
+}
+
+
+.jokes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 88vh;
+  box-sizing: border-box;
+}
+
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.jokes-button {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.jokes-button:hover {
+  background-color: #0056b3;
+}
+
+.joke-setup,
+.joke-delivery {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: #fff;
+  max-width: 70vw;
+
+}
+
+
+@media (max-width: 768px) {
+  .jokes-container {
+    height: auto;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  .joke-setup,
+  .joke-delivery {
+    font-size: 1rem;
+  }
+
+  .jokes-button {
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+
 }

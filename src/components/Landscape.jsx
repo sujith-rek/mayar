@@ -1,13 +1,32 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import { Neko } from "neko-ts"
 
 function Landscape() {
     const [landscape, setLandscape] = useState('/assets/landscape.jpg')
+    const [counter, setCounter] = useState(60)
+    const [firstTime, setFirstTime] = useState(localStorage.getItem('firstTime') || true)
+    localStorage.setItem('lastpage', '/')
+
+    const neko = useRef(new Neko({
+        nekoSize: 70,
+        origin: {
+            x: 50,
+            y: 100,
+        },
+    }))
+
+    useEffect(() => {
+        if (firstTime === 'true') {
+            alert('Welcome to the website!, The image will change every minute, stayback and enjoy the view, for mobile double tap to see the cat moving around')
+            setFirstTime(false)
+            localStorage.setItem('firstTime', false)
+        }
+    }, [firstTime])
 
     const fetchLandscape = async () => {
         const URL = 'https://api.unsplash.com/photos/random?query=landscape&orientation=landscape&client_id=' + import.meta.env.VITE_UNSPLASH_ACCESS_KEY
         const response = await fetch(URL)
         const data = await response.json()
-        console.log(data)
         setLandscape(data.urls.regular)
     }
 
@@ -15,9 +34,15 @@ function Landscape() {
         const URL = 'https://api.unsplash.com/photos/random?query=nature&orientation=landscape&client_id=' + import.meta.env.VITE_UNSPLASH_ACCESS_KEY
         const response = await fetch(URL)
         const data = await response.json()
-        console.log(data)
         setLandscape(data.urls.regular)
     }
+
+    useEffect(() => {
+        if (counter > 0) {
+            const timer = setTimeout(() => setCounter(counter - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [counter]);
 
     useEffect(() => {
         let isLandscape = true;
@@ -28,16 +53,20 @@ function Landscape() {
                 fetchNature();
             }
             isLandscape = !isLandscape;
-        }, 60000); // 60000 milliseconds = 1 minute
-
-        // Clean up the interval on unmount
+            setCounter(60)
+        }, 60000);
         return () => clearInterval(intervalId);
     }, []);
 
     return (
-        <div className="landscape">
-            <img src={landscape} alt="landscape" className="landscape-img" />
-        </div>
+        <>
+            <div ref={neko}></div>
+
+            <div className="landscape">
+                <h1>Time till new image: {counter} seconds</h1>
+                <img src={landscape} alt="landscape" className="landscape-img" />
+            </div>
+        </>
     )
 }
 

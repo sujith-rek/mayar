@@ -6,7 +6,7 @@ function Idle() {
   const [lastpage, setLastPage] = useState(localStorage.getItem('lastpage') || '/idle');
 
   useEffect(() => {
-    if (lastpage === '/cat') {
+    if (lastpage === '/') {
       localStorage.setItem('lastpage', '/idle');
       setLastPage('/idle');
       window.location.reload();
