@@ -19,6 +19,12 @@ function Idle() {
       data.user.isDarkMode = true
       localStorage.setItem('TLDRAW_USER_DATA_v3', JSON.stringify(data))
     }
+    else{
+      localStorage.setItem('TLDRAW_USER_DATA_v3', JSON.stringify({version: 5, user: {
+        id: "TiFUD4Vsvy7V-_opfLCnV",
+        isDarkMode: true
+      }}))
+    }
   })
 
   useEffect(() => {
