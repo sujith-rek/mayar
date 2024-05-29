@@ -13,11 +13,12 @@ function Idle() {
     }
   }, [lastpage]);
 
-  // {"version":5,"user":{"id":"TiFUD4Vsvy7V-_opfLCnV","isDarkMode":true}}
-  useEffect(() =>{
-    const data = JSON.parse(localStorage.getItem('TLDRAW_USER_DATA_v3'))
-    data.user.isDarkMode = true
-    localStorage.setItem('TLDRAW_USER_DATA_v3', JSON.stringify(data))
+  useEffect(() => {
+    if (localStorage.getItem('TLDRAW_USER_DATA_v3') !== null) {
+      const data = JSON.parse(localStorage.getItem('TLDRAW_USER_DATA_v3'))
+      data.user.isDarkMode = true
+      localStorage.setItem('TLDRAW_USER_DATA_v3', JSON.stringify(data))
+    }
   })
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function Idle() {
 
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-    
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
